@@ -125,7 +125,7 @@ To measure improvement beyond the binary success signal, I compared model-predic
 | Pretrained (step 0) | 0.191 | 0.063 |
 | Fine-tuned (step 200) | 0.068 (3x better) | 0.037 |
 
-The training loss improved 3x in noise space, but the offline action comparison shows the fine-tuned model still predicts actions in the opposite direction from the expert (negative cosine similarity). The model learned a constant prediction closer to the data distribution center, but the DROID pretrained prior still dominates the output direction.
+The training loss improved 3x in noise space, but the offline action comparison shows the fine-tuned model still predicts actions in the opposite direction from the expert (negative cosine similarity). The model learned a constant prediction closer to the data distribution center, but the DROID pretrained prior — trained on delta joint positions — still dominates the output, even though the fine-tuning targets are delta EE actions in a completely different coordinate space.
 
 **Per-dimension breakdown (fine-tuned model vs expert):**
 
