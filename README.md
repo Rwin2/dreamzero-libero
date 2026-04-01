@@ -176,6 +176,8 @@ Distribution shift during closed-loop rollouts could be addressed by running the
 
 ### Data Conversion
 
+LIBERO stores demos as HDF5 files with 2 cameras (agentview + wrist). DreamZero expects 3 camera views, so the conversion duplicates the agentview as a second exterior camera. The first script converts to LeRobot v2 format (parquet + MP4), the second generates GEAR metadata (normalization statistics) needed by DreamZero's transform pipeline.
+
 ```bash
 conda activate dreamzero
 python scripts/data/convert_libero_to_lerobot.py \
