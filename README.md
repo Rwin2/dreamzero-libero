@@ -116,7 +116,7 @@ To measure improvement beyond the binary success signal, I compared model-predic
 |---|---|---|---|
 | Random uniform [-1,1] | 1.56 | +0.00 | +0.02 |
 | **Fine-tuned (200 steps)** | **1.16** | **-0.28** | **-0.56** |
-| Dataset mean (oracle) | 0.49 | +0.65 | +0.87 |
+| Dataset mean (best constant policy) | 0.49 | +0.65 | +0.87 |
 
 **Training loss (flow-matching noise space) before/after:**
 
