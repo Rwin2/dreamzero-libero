@@ -175,26 +175,43 @@ Distribution shift during closed-loop rollouts could be addressed by running the
 
 ### Environment Setup
 
-Two separate conda environments are needed due to incompatible Python/PyTorch versions.
+Two separate conda environments are needed — DreamZero requires Python 3.11 + PyTorch 2.8, while LIBERO requires Python 3.8 + older dependencies.
 
-**DreamZero** (training + inference, Python 3.11):
+**DreamZero** (training + inference):
 
 ```bash
 conda create -n dreamzero python=3.11
 conda activate dreamzero
 cd dreamzero_work
-pip install -e .  # installs from pyproject.toml: torch 2.8, deepspeed, peft, hydra, etc.
+pip install -e . --extra-index-url https://download.pytorch.org/whl/cu129
+MAX_JOBS=8 pip install --no-build-isolation flash-attn
 ```
 
-**LIBERO** (evaluation, Python 3.8):
+This installs torch 2.8, deepspeed, peft (LoRA), hydra, transformers, and all dependencies from `pyproject.toml`.
+
+**LIBERO** (evaluation):
 
 ```bash
-conda create -n libero python=3.8
+conda create -n libero python=3.8.13
 conda activate libero
-cd /path/to/LIBERO
+git clone https://github.com/Lifelong-Robot-Learning/LIBERO.git
+cd LIBERO
+pip install -r requirements.txt
+pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 \
+    --extra-index-url https://download.pytorch.org/whl/cu113
 pip install -e .
-pip install -r requirements.txt  # robosuite, mujoco, robomimic, etc.
-pip install msgpack websockets    # for WebSocket communication with DreamZero server
+pip install msgpack websockets  # for WebSocket communication with DreamZero server
+```
+
+**Headless rendering** (required for eval on GPU servers without display):
+
+```bash
+# cmake is needed to build mujoco/robosuite native extensions
+conda install -c conda-forge cmake
+# Set EGL before running eval
+export MUJOCO_GL=egl
+export PYOPENGL_PLATFORM=egl
+export EGL_DEVICE_ID=0
 ```
 
 ### Data Conversion
