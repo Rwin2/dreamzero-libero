@@ -6,7 +6,6 @@ the predicted action chunk against the expert actions.
 """
 import argparse
 import json
-import struct
 import numpy as np
 import pandas as pd
 import websocket
@@ -98,7 +97,7 @@ def main():
     # Try to decode
     try:
         response = msgpack.unpackb(response_raw, object_hook=_decode_numpy, raw=False)
-    except:
+    except Exception:
         response = response_raw
         if isinstance(response, (str, bytes)):
             print(f"Server error: {response}")

@@ -98,7 +98,7 @@ for task_idx in range(10):
 
     try:
         response = msgpack.unpackb(response_raw, object_hook=_decode_numpy, raw=False)
-    except:
+    except Exception:
         print(f"Task {task_idx}: Server error")
         print(response_raw[:200] if isinstance(response_raw, bytes) else response_raw)
         continue

@@ -109,7 +109,7 @@ for task_idx in range(10):
 
         try:
             resp = msgpack.unpackb(resp_raw, object_hook=_decode_numpy, raw=False)
-        except:
+        except Exception:
             continue
 
         if isinstance(resp, dict):
