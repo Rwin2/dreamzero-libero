@@ -184,7 +184,7 @@ python scripts/data/convert_libero_to_lerobot.py \
     --src-path /path/to/libero_spatial \
     --tgt-path ./data/libero_spatial_lerobot --fps 20
 python scripts/data/convert_lerobot_to_gear.py \
-    --src-path ./data/libero_spatial_lerobot
+    --dataset-path ./data/libero_spatial_lerobot
 ```
 
 ### Training
