@@ -229,20 +229,17 @@ class DreamZeroClient:
         if need_new_chunk:
             self._chunk_step = 0
 
-            # Resize images to 180x320 to match DreamZero's expected resolution
-            # (the server's _convert_observation expects this for video frames)
-            agentview_resized = _resize_image(agentview_rgb, 180, 320)
-            wrist_resized = _resize_image(eye_in_hand_rgb, 180, 320)
-
+            # Send images at native 128x128 — the server's transform pipeline
+            # handles resizing to the model's internal resolution.
             # DreamZero expects 3 cameras. We duplicate agentview as the
             # second exterior camera (LIBERO only has 2 cameras).
             request_data = {
-                "observation/exterior_image_0_left": agentview_resized,
-                "observation/exterior_image_1_left": agentview_resized.copy(),
-                "observation/wrist_image_left": wrist_resized,
+                "observation/exterior_image_0_left": agentview_rgb,
+                "observation/exterior_image_1_left": agentview_rgb.copy(),
+                "observation/wrist_image_left": eye_in_hand_rgb,
                 "observation/joint_position": joint_states.astype(np.float64),
                 "observation/cartesian_position": np.zeros((6,), dtype=np.float64),
-                "observation/gripper_position": gripper_states[:1].astype(np.float64),
+                "observation/gripper_position": gripper_states[:2].astype(np.float64),
                 "prompt": language_instruction,
             }
 
