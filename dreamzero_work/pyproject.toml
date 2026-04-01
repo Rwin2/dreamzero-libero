@@ -93,7 +93,7 @@ dev = [
 ]
 
 [project.scripts]
-dreamzero-server = "socket_test_optimized_AR:main"
+dreamzero-server = "inference_server:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

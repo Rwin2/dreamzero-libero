@@ -7,7 +7,7 @@ before committing to a full server restart.
 
 Usage:
     conda activate dreamzero
-    python test_transform.py --model-path output/dreamzero_libero_lora_droid/checkpoint-200 --embodiment-tag libero_sim
+    python validate_transforms.py --model-path output/dreamzero_libero_lora_droid/checkpoint-200 --embodiment-tag libero_sim
 """
 import argparse
 import json

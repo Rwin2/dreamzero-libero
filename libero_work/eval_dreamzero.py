@@ -10,7 +10,7 @@ Usage:
     # 1. Start DreamZero inference server (in dreamzero env):
     #    CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.run \
     #        --standalone --nproc_per_node=2 \
-    #        socket_test_optimized_AR.py --port 5000 --enable-dit-cache \
+    #        inference_server.py --port 5000 --enable-dit-cache \
     #        --model-path ./checkpoints/dreamzero_libero_lora
     #
     # 2. Run this eval client (in libero env):

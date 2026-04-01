@@ -18,13 +18,13 @@ Expected server configuration:
 
 Usage:
     # Start server with roboarena interface:
-    torchrun --nproc_per_node=8 socket_test_optimized_AR.py --port 8000
+    torchrun --nproc_per_node=8 inference_server.py --port 8000
 
     # Run this test:
-    python test_client_AR.py --host <server_host> --port 8000
+    python test_server.py --host <server_host> --port 8000
 
     # Use zero images instead of real video (old behavior):
-    python test_client_AR.py --host <server_host> --port 8000 --use-zero-images
+    python test_server.py --host <server_host> --port 8000 --use-zero-images
 """
 
 import argparse
