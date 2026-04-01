@@ -154,12 +154,12 @@ LIBERO only stores delta end-effector actions (OSC_POSE). There is no joint posi
 
 The original DreamZero uses 80K steps on a much larger dataset. A realistic fine-tuning run would be:
 
-| Steps | Epochs | Time (2×H100) | Expected Outcome |
-|---|---|---|---|
-| 200 | 0.8 | 30 min | Constant prediction (current) |
-| 2K | 8 | 5 hours | Some scene conditioning |
-| 10K | 40 | 25 hours | Task-directed behavior |
-| 50K | 200 | 5 days | Convergence |
+| Steps | ETA (2×H100) |
+|---|---|
+| 200 | 30 min |
+| 2K | 5 hours |
+| 10K | 25 hours |
+| 50K | 5 days |
 
 ### DAgger
 
