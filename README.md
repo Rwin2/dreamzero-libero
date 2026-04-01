@@ -172,7 +172,30 @@ Distribution shift during closed-loop rollouts could be addressed by running the
 - 2× H100 GPUs (80GB each)
 - DreamZero-DROID checkpoint
 - LIBERO benchmark datasets
-- Conda environments: `dreamzero` (training/inference), `libero` (evaluation)
+
+### Environment Setup
+
+Two separate conda environments are needed due to incompatible Python/PyTorch versions.
+
+**DreamZero** (training + inference, Python 3.11):
+
+```bash
+conda create -n dreamzero python=3.11
+conda activate dreamzero
+cd dreamzero_work
+pip install -e .  # installs from pyproject.toml: torch 2.8, deepspeed, peft, hydra, etc.
+```
+
+**LIBERO** (evaluation, Python 3.8):
+
+```bash
+conda create -n libero python=3.8
+conda activate libero
+cd /path/to/LIBERO
+pip install -e .
+pip install -r requirements.txt  # robosuite, mujoco, robomimic, etc.
+pip install msgpack websockets    # for WebSocket communication with DreamZero server
+```
 
 ### Data Conversion
 
