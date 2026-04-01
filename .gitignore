@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.egg-info/
+output/
+checkpoints/
+data/
+*.mp4
+*.hdf5
+*.parquet
+.env
