@@ -49,11 +49,13 @@ During fine-tuning, LIBERO's 6-dim delta EE actions are stored under the key `ac
 
 ### Zero-Shot Controller Experiments
 
-Three configurations tested to isolate the action space mismatch:
+Before fine-tuning, I tested the pretrained DROID model directly on LIBERO to understand the action space gap. Since the pretrained model natively outputs delta joint positions (not delta EE), I tried three different simulator controller configurations:
 
-1. **OSC_POSE (default LIBERO)**: Model outputs joint deltas → controller expects Cartesian. Complete mismatch → 0%.
-2. **JOINT_POSITION, raw**: Correct action type, but controller scales input by 0.05. Model outputs ~0.5 rad, becomes 0.025 rad. Robot barely moves → 0%.
-3. **JOINT_POSITION, rescaled (÷ 0.05)**: Correct type and magnitude. Robot moves but actions are not task-directed → 0%.
+1. **OSC_POSE (LIBERO's default controller)**: The model outputs delta joint positions, but OSC_POSE expects delta Cartesian poses. The action semantics are completely mismatched — the robot moves erratically. 0% success.
+2. **JOINT_POSITION controller, raw output**: This controller matches the model's native action space. However, robosuite's JOINT_POSITION controller internally scales inputs by 0.05, so the model's ~0.5 rad deltas become ~0.025 rad at the joints. The robot barely moves. 0% success.
+3. **JOINT_POSITION controller, rescaled (÷ 0.05)**: Dividing by the internal scaling factor restores the correct magnitude. The robot moves at a reasonable speed, but the actions are not task-directed — the model was trained on DROID kitchen scenes, not LIBERO tabletop tasks. 0% success.
+
+These experiments confirmed that even with the correct controller and action scaling, zero-shot transfer fails due to the visual domain gap between DROID and LIBERO. Fine-tuning is necessary. After fine-tuning (where the model learns delta EE actions from LIBERO's OSC_POSE data), all evaluation uses OSC_POSE.
 
 ## Training
 
